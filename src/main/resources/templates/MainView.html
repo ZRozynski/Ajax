@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Podaj Kod Pocztowy!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        var url = window.location;
+
+        function RestGETLocality () {
+
+            var ZipCodeData = {
+                zipCode : $("#zipCodeField").val()
+            }
+            $.ajax({
+                type:       'GET',
+                url:        '/getLocality',
+                datatype:   JSON,
+                data:       JSON.stringify(ZipCodeData),
+                async:      true,
+                success:    function (result) {
+                    var locality= " ";
+                    $.each(result.data, function (i, locality) {
+                        locality = locality.locality;
+                        $("#localityResult").append(locality);
+                    })
+                },
+                error: function () {
+                    document.getElementById("localityResult").innerHTML = "błąd/ brak miejscowośći";
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <h2>Zmieniarka miejscowośći po kodzie pocztowym!</h2>
+    <input type="text" id="zipCodeField" onkeyup="RestGETLocality()"/>
+    <div id="localityResult">........</div>
+    <div id="serverConnectionStatus">Status serwera</div>
+</body>
+</html>
