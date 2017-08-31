@@ -15,10 +15,11 @@ public class LocalityRepository {
     public Locality getLocalityByZipCode(String zipCode){
         return  localities.
                 stream().
-                filter(loc -> loc.equals(zipCode)).
+                filter(loc -> loc.getZipCode().equals(zipCode)).
                 findAny().
                 orElse(null);
     }
+
     public LocalityRepository() {
         localities = new ArrayList<>();
         localities.add(new Locality("22-500","Hrubieszów"));

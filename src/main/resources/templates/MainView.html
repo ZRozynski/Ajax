@@ -9,21 +9,13 @@
 
         function RestGETLocality () {
 
-            var ZipCodeData = {
-                zipCode : $("#zipCodeField").val()
-            }
+            var zipCode = $("#zipCodeField").val();
             $.ajax({
                 type:       'GET',
-                url:        '/getLocality',
-                datatype:   JSON,
-                data:       JSON.stringify(ZipCodeData),
+                url:        '/getLocality/' + zipCode,
                 async:      true,
                 success:    function (result) {
-                    var locality= " ";
-                    $.each(result.data, function (i, locality) {
-                        locality = locality.locality;
-                        $("#localityResult").append(locality);
-                    })
+                    document.getElementById("localityResult").innerHTML = JSON.stringify(result);
                 },
                 error: function () {
                     document.getElementById("localityResult").innerHTML = "błąd/ brak miejscowośći";
@@ -36,6 +28,5 @@
     <h2>Zmieniarka miejscowośći po kodzie pocztowym!</h2>
     <input type="text" id="zipCodeField" onkeyup="RestGETLocality()"/>
     <div id="localityResult">........</div>
-    <div id="serverConnectionStatus">Status serwera</div>
 </body>
 </html>

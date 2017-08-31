@@ -4,6 +4,14 @@ public class Locality {
     private String zipCode;
     private String locality;
 
+    @Override
+    public String toString() {
+        return "Locality{" +
+                "zipCode='" + zipCode + '\'' +
+                ", locality='" + locality + '\'' +
+                '}';
+    }
+
     public String getZipCode() {
         return zipCode;
     }
